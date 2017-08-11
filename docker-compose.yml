@@ -1,0 +1,23 @@
+version: '3.3'
+services:
+  hamapp:
+    build: ./hamapp
+    volumes:
+      - ./hamapp/log:/var/log/hamcco
+    env_file:
+      - ./userlocal.env
+  upapp:
+    build: ./upapp
+    volumes:
+      - ./upapp/data:/usr/src/app/data
+    env_file:
+      - ./uploader.env
+  fraweb:
+    build: ./fraweb
+    ports:
+      - "80:80"
+    links:
+      - hamapp:hamapp
+      - upapp:upapp
+    volumes:
+      - ./fraweb/log:/var/log/nginx
