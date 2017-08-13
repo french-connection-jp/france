@@ -1,0 +1,84 @@
+$ sudo certbot certonly --standalone -d french-connection.jp -d www.french-connection.jp -d up.french-connection.jp
+
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Enter email address (used for urgent renewal and security notices) (Enter 'c' to
+cancel):nao@zumin.net
+
+-------------------------------------------------------------------------------
+Please read the Terms of Service at
+https://letsencrypt.org/documents/LE-SA-v1.1.1-August-1-2016.pdf. You must agree
+in order to register with the ACME server at
+https://acme-v01.api.letsencrypt.org/directory
+-------------------------------------------------------------------------------
+(A)gree/(C)ancel: A
+
+-------------------------------------------------------------------------------
+Would you be willing to share your email address with the Electronic Frontier
+Foundation, a founding partner of the Let's Encrypt project and the non-profit
+organization that develops Certbot? We'd like to send you email about EFF and
+our work to encrypt the web, protect its users and defend digital rights.
+-------------------------------------------------------------------------------
+(Y)es/(N)o: N
+Obtaining a new certificate
+Performing the following challenges:
+tls-sni-01 challenge for french-connection.jp
+tls-sni-01 challenge for www.french-connection.jp
+tls-sni-01 challenge for up.french-connection.jp
+Waiting for verification...
+Cleaning up challenges
+
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at
+   /etc/letsencrypt/live/french-connection.jp/fullchain.pem. Your cert
+   will expire on 2017-11-11. To obtain a new or tweaked version of
+   this certificate in the future, simply run certbot again. To
+   non-interactively renew *all* of your certificates, run "certbot
+   renew"
+ - Your account credentials have been saved in your Certbot
+   configuration directory at /etc/letsencrypt. You should make a
+   secure backup of this folder now. This configuration directory will
+   also contain certificates and private keys obtained by Certbot so
+   making regular backups of this folder is ideal.
+ - If you like Certbot, please consider supporting our work by:
+
+   Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+   Donating to EFF:                    https://eff.org/donate-le
+
+$ ll
+
+total 8
+drwxrwxr-x 2 naoki naoki 4096 Aug 13 12:34 ./
+drwxr-xr-x 6 naoki naoki 4096 Aug 13 12:34 ../
+
+$ sudo su
+
+# cd /etc/letsencrypt/
+
+# ls
+accounts  archive  csr  keys  live  renewal
+
+# cd live/
+
+# pwd
+/etc/letsencrypt/live
+
+# ll
+total 12
+drwx------ 3 root root 4096 Aug 13 12:57 ./
+drwxr-xr-x 8 root root 4096 Aug 13 12:57 ../
+drwxr-xr-x 2 root root 4096 Aug 13 12:57 french-connection.jp/
+
+# cd french-connection.jp/
+
+# pwd
+/etc/letsencrypt/live/french-connection.jp
+
+# ll
+total 12
+drwxr-xr-x 2 root root 4096 Aug 13 12:57 ./
+drwx------ 3 root root 4096 Aug 13 12:57 ../
+lrwxrwxrwx 1 root root   44 Aug 13 12:57 cert.pem -> ../../archive/french-connection.jp/cert1.pem
+lrwxrwxrwx 1 root root   45 Aug 13 12:57 chain.pem -> ../../archive/french-connection.jp/chain1.pem
+lrwxrwxrwx 1 root root   49 Aug 13 12:57 fullchain.pem -> ../../archive/french-connection.jp/fullchain1.pem
+lrwxrwxrwx 1 root root   47 Aug 13 12:57 privkey.pem -> ../../archive/french-connection.jp/privkey1.pem
+-rw-r--r-- 1 root root  543 Aug 13 12:57 README
