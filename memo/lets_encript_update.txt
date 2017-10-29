@@ -1,0 +1,74 @@
+##################################################
+# (1) Sakura サーバにログイン
+##################################################
+
+$ login naoki
+$ cd PRODUCT/france
+
+##################################################
+# (2) nginx server を停止
+#   ついでにアプリぜんぶのコンテナをとめておく
+##################################################
+
+$ docker-compose stop
+Stopping france_hamapp_1 ... done
+Stopping france_fraweb_1 ... done
+Stopping france_upapp_1  ... done
+
+$ docker-compose ps
+     Name                    Command                State     Ports
+-------------------------------------------------------------------
+france_fraweb_1   nginx -g daemon off;             Exit 0
+france_hamapp_1   unicorn -c /usr/src/app/co ...   Exit 0
+france_upapp_1    /tini -- node /usr/src/app ...   Exit 143
+
+##################################################
+# (3) Let's Encript 証明書更新
+##################################################
+
+$ sudo certbot renew
+[sudo] password for naoki:
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+
+-------------------------------------------------------------------------------
+Processing /etc/letsencrypt/renewal/french-connection.jp.conf
+-------------------------------------------------------------------------------
+Cert is due for renewal, auto-renewing...
+Renewing an existing certificate
+Performing the following challenges:
+tls-sni-01 challenge for french-connection.jp
+tls-sni-01 challenge for up.french-connection.jp
+tls-sni-01 challenge for www.french-connection.jp
+Waiting for verification...
+Cleaning up challenges
+
+-------------------------------------------------------------------------------
+new certificate deployed without reload, fullchain is
+/etc/letsencrypt/live/french-connection.jp/fullchain.pem
+-------------------------------------------------------------------------------
+
+Congratulations, all renewals succeeded. The following certs have been renewed:
+  /etc/letsencrypt/live/french-connection.jp/fullchain.pem (success)
+
+##################################################
+# (4) Docker nginx含む コンテナを再起動
+##################################################
+
+$ docker-compose start
+Starting upapp  ... done
+Starting hamapp ... done
+Starting fraweb ... done
+
+$ docker-compose ps
+     Name                    Command               State                    Ports
+---------------------------------------------------------------------------------------------------
+france_fraweb_1   nginx -g daemon off;             Up      0.0.0.0:443->443/tcp, 0.0.0.0:80->80/tcp
+france_hamapp_1   unicorn -c /usr/src/app/co ...   Up      8000/tcp
+france_upapp_1    /tini -- node /usr/src/app ...   Up      3000/tcp
+
+##################################################
+# これでサイトにアクセスして証明書を確認すると、
+# 確かに3ヶ月延長した証明書に更新しているはず
+#
+# 以上。
+##################################################
