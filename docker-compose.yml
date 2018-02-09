@@ -12,6 +12,13 @@ services:
       - ./upapp/data:/usr/src/app/data
     env_file:
       - ./uploader.env
+  glapp:
+    build: ./glapp
+    volumes:
+      - sockets:/usr/src/app/tmp/sockets
+      - ./glapp/volume/database:/usr/src/app/database
+      - ./glapp/volume/log:/usr/src/app/log
+      - ./glapp/volume/uploads:/usr/src/app/public/uploads
   fraweb:
     build: ./fraweb
     ports:
@@ -21,5 +28,8 @@ services:
       - hamapp:hamapp
       - upapp:upapp
     volumes:
+      - sockets:/var/tmp/sockets
       - ./fraweb/log:/var/log/nginx
       - /etc/letsencrypt:/etc/letsencrypt
+volumes:
+  sockets:
