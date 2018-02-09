@@ -8,3 +8,4 @@ ADD index.html 50x.html 404.html /usr/share/nginx/html/
 #
 ADD hamcco.conf /etc/nginx/conf.d/
 ADD uploader.conf /etc/nginx/conf.d/
+ADD glink.conf /etc/nginx/conf.d/
