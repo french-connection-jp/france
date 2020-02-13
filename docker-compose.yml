@@ -19,6 +19,13 @@ services:
       - ./glapp/volume/database:/usr/src/app/database
       - ./glapp/volume/log:/usr/src/app/log
       - ./glapp/volume/uploads:/usr/src/app/public/uploads
+  llapp:
+    build: ./llapp
+    volumes:
+      - sockets:/var/tmp/sockets
+      - ./llapp/volume/db:/code/sitebase/db
+      - ./llapp/volume/log:/var/log/uwsgi
+      - ./llapp/volume/llwork:/llwork
   fraweb:
     build: ./fraweb
     ports:
