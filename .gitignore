@@ -1,2 +1,4 @@
 .DS_Store
 /volume
+uploader.env
+userlocal.env
