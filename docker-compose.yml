@@ -1,11 +1,11 @@
 version: '3.3'
 services:
-  # hamapp:
-  #   build: ./hamapp
-  #   volumes:
-  #     - ./volume/hamapp/log:/var/log/hamcco
-  #   env_file:
-  #     - ./userlocal.env
+  hamapp:
+    image: hamapp
+    volumes:
+      - ./volume/hamapp/log:/var/log/hamcco
+    env_file:
+      - ./userlocal.env
   # upapp:
   #   build: ./upapp
   #   volumes:
@@ -26,7 +26,7 @@ services:
       - "443:443"
     links:
       - hamapp:hamapp
-      - upapp:upapp
+      # - upapp:upapp
     volumes:
       - sockets:/var/tmp/sockets
       - ./volume/fraweb/log:/var/log/nginx
